@@ -1,0 +1,14 @@
+---
+Name: shop-persistent-orders--injector
+---
+Injector:
+  RequestProcessor:
+    properties:
+      filters:
+        - '%$Milkyway\SS\Shop\PersistentOrders\SetCart'
+
+  'Milkyway\SS\Shop\PersistentOrders\HashGenerator':
+    class: 'RandomGenerator'
+
+  OrderManipulation:
+    class: 'Milkyway\SS\Shop\PersistentOrders\Extensions\AllowContinueController'

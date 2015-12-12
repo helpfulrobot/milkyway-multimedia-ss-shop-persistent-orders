@@ -1,0 +1,16 @@
+{
+  "name"       : "milkyway-multimedia/ss-shop-persistent-orders",
+  "description": "Allows orders to be stored in cookies, and also allows continuation of orders via URL",
+  "type"       : "silverstripe-module",
+  "require"    : {
+    "burnbright/silverstripe-shop"     : "~1.2",
+    "milkyway-multimedia/ss-mwm"       : "~0.3",
+    "milkyway-multimedia/ss-behaviours": "~0.2"
+  },
+  "extra"      : {
+    "installer-name": "shop-persistent-orders",
+    "branch-alias"  : {
+      "dev-master": "0.1.x-dev"
+    }
+  }
+}
