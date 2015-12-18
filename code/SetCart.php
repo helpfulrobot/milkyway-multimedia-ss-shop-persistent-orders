@@ -9,7 +9,6 @@
  */
 
 use RequestFilter;
-
 use SS_HTTPRequest as Request;
 use SS_HTTPResponse as Response;
 use Session;
@@ -17,7 +16,6 @@ use DataModel;
 use Cookie;
 use Member;
 use DB;
-
 use ShoppingCart;
 use Order;
 
@@ -27,7 +25,7 @@ class SetCart implements RequestFilter
 
     public function preRequest(Request $request, Session $session, DataModel $model)
     {
-        if($this->done) {
+        if ($this->done) {
             return;
         }
 
@@ -46,7 +44,7 @@ class SetCart implements RequestFilter
             'Status' => 'Cart',
         ];
 
-        if(!Member::currentUserID() && Member::config()->login_joins_cart) {
+        if (!Member::currentUserID() && Member::config()->login_joins_cart) {
             $filters['MemberID'] = 0;
         }
 
@@ -57,8 +55,7 @@ class SetCart implements RequestFilter
             ]))->first()) {
             ShoppingCart::singleton()->setCurrent($order);
             $recovered = 'Cookie';
-        }
-        else if(!$cart &&
+        } elseif (!$cart &&
             Member::currentUserID() &&
             singleton('env')->get('ShopConfig.get_last_cart_of_member', true) &&
             $order = Order::get()->filter(array_merge($filters, [
@@ -68,14 +65,13 @@ class SetCart implements RequestFilter
             $recovered = 'Last Member Order';
         }
 
-        if($cart && !$cart->PersistenceReference) {
+        if ($cart && !$cart->PersistenceReference) {
             $cart->generateCartId();
-        }
-        else if($cart && !Cookie::get($idVar)) {
+        } elseif ($cart && !Cookie::get($idVar)) {
             Cookie::set($idVar, $cart->PersistenceReference, singleton('env')->get('ShopConfig.persist_order_days', 90));
         }
 
-        if($recovered && $cart) {
+        if ($recovered && $cart) {
             $cart->extend('onRecovered', $recovered);
         }
 
@@ -84,6 +80,5 @@ class SetCart implements RequestFilter
 
     public function postRequest(Request $request, Response $response, DataModel $model)
     {
-
     }
 }

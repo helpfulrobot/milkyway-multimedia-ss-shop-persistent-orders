@@ -18,19 +18,17 @@ class AllowContinue extends Sluggable
         // Clear hash when order is placed, meaning it can no longer be continued
         if ($this->owner->Placed) {
             $this->owner->Slug = null;
-        }
-        else {
+        } else {
             parent::onBeforeWrite();
         }
     }
 
     public function getContinueLink()
     {
-        if($this->owner->IsCart() && $this->owner->Slug && $checkout = CheckoutPage::get()->first()) {
-            if($checkout->hasExtension('Milkyway\SS\Shop\PersistentOrders\Extensions\AllowContinueFromCheckout')) {
+        if ($this->owner->IsCart() && $this->owner->Slug && $checkout = CheckoutPage::get()->first()) {
+            if ($checkout->hasExtension('Milkyway\SS\Shop\PersistentOrders\Extensions\AllowContinueFromCheckout')) {
                 return $checkout->Link($this->owner->Slug);
-            }
-            else {
+            } else {
                 return $checkout->Link('order/' . $this->owner->Slug);
             }
         }
