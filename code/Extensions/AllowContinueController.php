@@ -10,13 +10,11 @@
 
 use SS_HTTPRequest as Request;
 use SS_HTTPResponse_Exception as ResponseException;
-
 use ShoppingCart;
 use CartPage;
 use CheckoutPage;
 use OrderManipulation;
 use Order;
-
 use Convert;
 
 class AllowContinueController extends OrderManipulation
